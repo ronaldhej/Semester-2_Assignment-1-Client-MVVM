@@ -5,13 +5,13 @@ import java.net.Socket;
 
 public class ModelManager implements Model
 {
-    public void sendMessage(String username, String text)
+    @Override public void sendMessage(String username, String text)
     {
-        System.out.println("Button pressed");
+        System.out.println("Button pressed - model");
 
-        try (Socket socket = new Socket("192.168.1.226", 6789))
+        try (Socket socket = new Socket("192.168.1.226", 4567))
         {
-            System.out.println("Port opened message");
+            System.out.println("Port opened");
             PrintWriter out = null;
             try
             {
@@ -22,11 +22,12 @@ public class ModelManager implements Model
             }
             finally
             {
-                out.println(text);
+                out.println(username + " > " + text);
             }
 
         } catch (Exception e)
         {
+            System.out.println("Failed to open port");
 
         }
 

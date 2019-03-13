@@ -15,6 +15,7 @@ public class ViewModelClient
         this.model = model;
         this.username = new SimpleStringProperty();
         this.error = new SimpleStringProperty();
+        this.text = new SimpleStringProperty();
     }
 
     public StringProperty usernameProperty() {return username;}
@@ -29,8 +30,8 @@ public class ViewModelClient
         {
             System.out.println("Attempt to send message");
             model.sendMessage(username.get(), text.get());
-            username.set("");
             text.set("");
+
         }
         catch (Exception e)
         {

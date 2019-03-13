@@ -8,8 +8,9 @@ import javafx.scene.control.*;
 
 public class ViewClient {
 
-    public TextField usernameField;
-    public Button sendButton;
+    @FXML private TextField usernameField;
+    @FXML private Button sendButton;
+    @FXML private TextField textField;
 
     private ViewModelClient viewModel;
     private String title;
@@ -25,12 +26,15 @@ public class ViewClient {
        this.title = title;
        this.scene = scene;
        this.viewModel = viewModel;
+
+       usernameField.textProperty().bindBidirectional(viewModel.usernameProperty());
+       textField.textProperty().bindBidirectional(viewModel.textProperty());
    }
 
    @FXML private void sendButtonPressed()
 
    {
-       System.out.println("Button pressed");
+       System.out.println("Button pressed - view client");
        viewModel.sendMessage();
    }
 
