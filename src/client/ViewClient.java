@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 
 public class ViewClient {
 
+    public TextArea chatField;
     @FXML private TextField usernameField;
     @FXML private Button sendButton;
     @FXML private TextField textField;
@@ -29,6 +30,7 @@ public class ViewClient {
 
        usernameField.textProperty().bindBidirectional(viewModel.usernameProperty());
        textField.textProperty().bindBidirectional(viewModel.textProperty());
+       chatField.textProperty().bindBidirectional(viewModel.chatFieldProperty());
    }
 
    @FXML private void sendButtonPressed()

@@ -2,14 +2,35 @@ package client;
 
 import utility.observer.listener.GeneralListener;
 import utility.observer.subject.PropertyChangeProxy;
+import utility.observer.subject.PropertyChangeAction;
 
 import java.beans.PropertyChangeEvent;
+import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ModelManager implements Model, ObservableModel
+
+public class ModelManager implements Model
 {
-    private PropertyChangeProxy<String, Boolean> property;
+    private String receivedMessage;
+    private PropertyChangeAction<String, String> subject;
+
+    public ModelManager(String receivedMessage)
+    {
+        this.receivedMessage = receivedMessage;
+        this.subject = new PropertyChangeProxy<>(this);
+    }
+
+    public ModelManager() {
+
+    }
+
+    public void setReceivedMessage(String receivedMessage)
+    {
+        String oldReceivedMessage = this.receivedMessage;
+        this.receivedMessage = receivedMessage;
+        subject.firePropertyChange("String updated", oldReceivedMessage, receivedMessage);
+    }
 
     @Override public void sendMessage(String username, String text)
     {
@@ -40,14 +61,14 @@ public class ModelManager implements Model, ObservableModel
     }
 
     @Override
-    public boolean addListener(GeneralListener<String, Boolean> listener, String... propertyNames)
+    public boolean addListener(GeneralListener<String, String> listener, String... propertyNames)
     {
-        return property.addListener(listener, propertyNames);
+        return subject.addListener(listener, propertyNames);
     }
 
     @Override
-    public boolean removeListener(GeneralListener<String, Boolean> listener, String... propertyNames)
+    public boolean removeListener(GeneralListener<String, String> listener, String... propertyNames)
     {
-        return property.removeListener(listener, propertyNames);
+        return subject.removeListener(listener, propertyNames);
     }
 }
