@@ -1,10 +1,16 @@
 package client;
 
+import utility.observer.listener.GeneralListener;
+import utility.observer.subject.PropertyChangeProxy;
+
+import java.beans.PropertyChangeEvent;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ModelManager implements Model
+public class ModelManager implements Model, ObservableModel
 {
+    private PropertyChangeProxy<String, Boolean> property;
+
     @Override public void sendMessage(String username, String text)
     {
         System.out.println("Button pressed - model");
@@ -33,4 +39,15 @@ public class ModelManager implements Model
 
     }
 
+    @Override
+    public boolean addListener(GeneralListener<String, Boolean> listener, String... propertyNames)
+    {
+        return property.addListener(listener, propertyNames);
+    }
+
+    @Override
+    public boolean removeListener(GeneralListener<String, Boolean> listener, String... propertyNames)
+    {
+        return property.removeListener(listener, propertyNames);
+    }
 }

@@ -1,8 +1,10 @@
 package client;
 
 import javafx.beans.property.*;
+import utility.observer.event.ObserverEvent;
+import utility.observer.listener.LocalListener;
 
-public class ViewModelClient
+public class ViewModelClient implements LocalListener<String, Boolean>
 {
     private Model model;
 
@@ -39,4 +41,9 @@ public class ViewModelClient
         }
     }
 
+    @Override
+    public void propertyChange(ObserverEvent<String, Boolean> event)
+    {
+
+    }
 }
